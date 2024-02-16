@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.WRITE_MEDIA_DOCUMENTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/enfof"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/enfof"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ENZOF"
+        tools:targetApi="31">
+        <activity
+            android:name=".C_tres_ejercicio"
+            android:exported="false" />
+        <activity
+            android:name=".C_dos_ladocorporal"
+            android:exported="false" />
+        <activity
+            android:name=".C_uno_musculo"
+            android:exported="false"
+            android:label="@string/title_activity_cuno_musculo"
+            android:theme="@style/Theme.ENZOF" />
+        <activity
+            android:name=".Calibracion"
+            android:exported="false" />
+        <activity
+            android:name=".Seguimiento2"
+            android:exported="false" />
+        <activity
+            android:name=".Seguimiento"
+            android:exported="false" />
+        <activity
+            android:name=".RS_cuatro_registro"
+            android:exported="false" />
+        <activity
+            android:name=".PruebaPDF"
+            android:exported="false" />
+        <activity
+            android:name=".RS_tres_ejercicio"
+            android:exported="false" />
+        <activity
+            android:name=".RS_dos_ladocorporal"
+            android:exported="false" />
+        <activity
+            android:name=".RS_uno_cuerpo"
+            android:exported="false" />
+        <activity
+            android:name=".Informacion"
+            android:exported="false" />
+        <activity
+            android:name=".guia"
+            android:exported="false" />
+        <activity
+            android:name=".Historial"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Sincronizar_BT"
+            android:exported="false" />
+        <activity
+            android:name=".Menu"
+            android:exported="false" />
+        <activity
+            android:name=".Registrarse"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.enzof.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

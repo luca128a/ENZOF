@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Informacion">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/BotonAtras10"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:contentDescription="Boton atras"
+        android:onClick="IrAMenuI"
+        android:scaleType="fitCenter"
+        android:src="@drawable/atras"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_vertical"
+            android:text="PREGUNTAS FRECUENTES"
+            android:textAppearance="@style/registrarse" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="30dp"
+            app:srcCompat="@drawable/linea" />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Spinner
+        android:id="@+id/lista_preguntas"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@color/color_spinner"
+        android:tint="#B3B31D"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <!--LINEARLAYOUT A CAMBIAR SEGUN LA PREGUNTA-->
+
+    <RelativeLayout
+        android:id="@+id/layoutge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <!--PREGUNTA 1-->
+
+        <LinearLayout
+            android:id="@+id/pregunta1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="Los electrodos en su piel permiten la medición de su actividad muscular en tiempo real mientras realiza determinado ejercicio. \n\nA partir de esto podrá obtener información acerca de en qué momento su músculo comenzo a fatigarse. \n\nAdemás, esta información será guardada en nuestra base de datos para que pueda acceder cuando lo desee."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 2-->
+
+        <LinearLayout
+            android:id="@+id/pregunta2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="Antes de abrir la aplicación active el Bluetooth y dentro de los dispositivos disponibles busque ENZOF.\n\n La contraseña para sincronizarse con el módulo es 2023. \n\n Una vez realizado esto ya puede usar la aplicación para registrar su señal."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 3-->
+
+        <LinearLayout
+            android:id="@+id/pregunta3"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="fill_horizontal"
+                android:padding="14dp"
+                android:text="1. Si su médico se lo recomienda para realizar un seguimiento de la recuperación de determinado músculo. \n\n2. Si desea observar su progreso en cierto entrenamiento, viendo si su resistencia a la fatiga muscular aumenta o no. \n\n 3. Si desea conocer si su músculo se encuentra fatigado, para tomar las precauciones necesarias, evitando lesiones muculares."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 4-->
+
+        <LinearLayout
+            android:id="@+id/pregunta4"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="Para realizar el registro de la señal recuerde tener el equipo ENZOF, con los electrodos, módulo EMG y Bluetooth.\n\n Recuerde tener el peso necesario para realizar correctamente el ejercicio.   "
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 5-->
+
+        <LinearLayout
+            android:id="@+id/pregunta5"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="14dp"
+                android:gravity="center"
+                android:text="El"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 6-->
+
+        <LinearLayout
+            android:id="@+id/pregunta6"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="ENZOF se puede usar con la regularidad que usted desea. Sin embargo, hacerlo de 2 a 3 veces por semana es lo recomendable."
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 4-->
+
+        <LinearLayout
+            android:id="@+id/pregunta7"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="Para los ejercicios de brazo se puede reemplazar la mancuerna por una botella de líquido. \n\nMientras que para los ejercicios de piernas se recomienda el uso de bidones"
+                 android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--PREGUNTA 5-->
+
+        <LinearLayout
+            android:id="@+id/preguntaIND"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="left"
+                android:padding="14dp"
+                android:text="Indicador raíz media cuádratica (RMS) \n\nIndicador frecuencia media (MF)"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/en" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+
+    </RelativeLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

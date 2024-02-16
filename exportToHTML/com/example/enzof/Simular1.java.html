@@ -1,0 +1,500 @@
+<html>
+<head>
+<title>Simular1.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Simular1.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.enzof</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.res.AssetManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Handler</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.example.enzof.modelo.RegistrosEMG</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnFailureListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnSuccessListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.jetbrains.annotations.Contract</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.jtransforms.fft.DoubleFFT_1D</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.BufferedReader</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.InputStream</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.InputStreamReader</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.text.SimpleDateFormat</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Calendar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Locale</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.TimeZone</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Simular1 </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s2">//guardado</span>
+    <span class="s0">private </span><span class="s1">FirebaseDatabase database</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DatabaseReference myRef</span><span class="s0">;</span>
+    <span class="s1">FirebaseAuth auth</span><span class="s0">;</span>
+
+    <span class="s0">private static final int </span><span class="s1">SAMPLE_RATE = </span><span class="s3">2000</span><span class="s0">;</span>
+    <span class="s0">private static final double </span><span class="s1">LOW_CUTOFF_FREQUENCY = </span><span class="s3">20</span><span class="s0">;</span>
+    <span class="s0">private static final double </span><span class="s1">HIGH_CUTOFF_FREQUENCY = </span><span class="s3">450.0</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ArrayList&lt;Double&gt; vector</span><span class="s0">;</span>
+
+    <span class="s2">//5. DECLARACIONES PARTE DE LA VENTANAS --------------------------------------------------------</span>
+    <span class="s0">private static final double </span><span class="s1">windowSizeSeconds = </span><span class="s3">10</span><span class="s0">;</span>
+    <span class="s0">boolean </span><span class="s1">Fatiga_promedio = </span><span class="s0">false;</span>
+    <span class="s0">boolean </span><span class="s1">Fatiga_RMS = </span><span class="s0">false;</span>
+    <span class="s0">int </span><span class="s1">Ifatiga_promedio = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">int </span><span class="s1">Ifatiga_RMS = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">double </span><span class="s1">referencia2 = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">double </span><span class="s1">referencia3 = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">private double </span><span class="s1">tiempo_fatiga</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String presento_fatiga</span><span class="s0">;</span>
+
+    <span class="s2">//7. SIMULACION  -------------------------------------------------------------------------------</span>
+
+    <span class="s0">private double</span><span class="s1">[] emg</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Handler handler</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String duracionSegundos</span><span class="s0">;</span>
+
+    <span class="s2">//</span>
+    <span class="s0">private </span><span class="s1">String musculoSeleccionado</span><span class="s0">;</span>
+    <span class="s0">private float </span><span class="s1">pesoSeleccionado = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String FechaDia</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_simular1)</span><span class="s0">;</span>
+
+        <span class="s2">//guardado</span>
+        <span class="s1">database = FirebaseDatabase.getInstance()</span><span class="s0">;</span>
+        <span class="s1">myRef = database.getReference(</span><span class="s4">&quot;RegistrosEMG&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">auth = FirebaseAuth.getInstance()</span><span class="s0">;</span>
+
+        <span class="s2">//musculo</span>
+        <span class="s1">musculoSeleccionado = </span><span class="s4">&quot;Biceps&quot;</span><span class="s0">;</span>
+        <span class="s1">pesoSeleccionado = </span><span class="s3">5 </span><span class="s1">* </span><span class="s3">0.5f</span><span class="s0">;</span>
+
+        <span class="s2">//FECHA PARA GUARDAR DESPUES -------------------------------------------------------</span>
+
+        <span class="s1">Calendar calendar = Calendar.getInstance()</span><span class="s0">;</span>
+        <span class="s1">SimpleDateFormat sdf = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s4">&quot;dd-MM-yyyy HH:mm:ss&quot;</span><span class="s0">, new </span><span class="s1">Locale(</span><span class="s4">&quot;es&quot;</span><span class="s0">, </span><span class="s4">&quot;AR&quot;</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">sdf.setTimeZone(TimeZone.getTimeZone(</span><span class="s4">&quot;America/Argentina/Buenos_Aires&quot;</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">String fechaHoraActual = sdf.format(calendar.getTime())</span><span class="s0">;</span>
+        <span class="s1">FechaDia = fechaHoraActual</span><span class="s0">;</span>
+
+        <span class="s2">//LECTURA</span>
+
+        <span class="s1">handler = </span><span class="s0">new </span><span class="s1">Handler()</span><span class="s0">;</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">AssetManager assetManager = getAssets()</span><span class="s0">;</span>
+            <span class="s1">InputStream inputStream = assetManager.open(</span><span class="s4">&quot;Sano1.txt&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">BufferedReader reader = </span><span class="s0">new </span><span class="s1">BufferedReader(</span><span class="s0">new </span><span class="s1">InputStreamReader(inputStream))</span><span class="s0">;</span>
+
+            <span class="s1">String line = reader.readLine()</span><span class="s0">;</span>
+
+            <span class="s2">// Remover los corchetes [ y ]</span>
+            <span class="s1">line = line.replace(</span><span class="s4">&quot;[&quot;</span><span class="s0">, </span><span class="s4">&quot;&quot;</span><span class="s1">).replace(</span><span class="s4">&quot;]&quot;</span><span class="s0">, </span><span class="s4">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s2">// Separar los valores por comas y convertirlos en números double</span>
+            <span class="s1">String[] values = line.split(</span><span class="s4">&quot;,&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">List&lt;Double&gt; emgList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(String value : values) {</span>
+                <span class="s0">double </span><span class="s1">number = Double.parseDouble(value.trim())</span><span class="s0">;</span>
+                <span class="s1">emgList.add(number)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s2">// Convertir la lista en un arreglo double[]</span>
+            <span class="s1">emg = </span><span class="s0">new double</span><span class="s1">[emgList.size()]</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; emgList.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s1">emg[i] = emgList.get(i)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">ArrayList&lt;Integer&gt; emglista = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">double </span><span class="s1">value : emg) {</span>
+                <span class="s1">emglista.add((</span><span class="s0">int</span><span class="s1">) value)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s0">int </span><span class="s1">sfreq = </span><span class="s3">2000</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">duracion = emglista.size() / sfreq</span><span class="s0">;</span>
+            <span class="s1">duracionSegundos = String.valueOf(duracion)</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">cantVentanas = (</span><span class="s0">int</span><span class="s1">) Math.floor(</span><span class="s3">10 </span><span class="s1">* sfreq)</span><span class="s0">;</span>
+
+
+            <span class="s1">vector = filtrado(emglista</span><span class="s0">,true,true</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">RegistrosEMG registrosEMG = </span><span class="s0">new </span><span class="s1">RegistrosEMG(FechaDia</span><span class="s0">, </span><span class="s1">musculoSeleccionado</span><span class="s0">, </span><span class="s1">duracionSegundos</span><span class="s0">, </span><span class="s1">pesoSeleccionado</span><span class="s0">, </span><span class="s1">vector</span><span class="s0">, </span><span class="s1">presento_fatiga</span><span class="s0">, </span><span class="s1">tiempo_fatiga)</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(auth.getCurrentUser() != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">myRef.child(auth.getCurrentUser().getUid()).child(FechaDia).setValue(registrosEMG).addOnSuccessListener(</span><span class="s0">new </span><span class="s1">OnSuccessListener&lt;Void&gt;() {</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onSuccess(Void unused) {</span>
+                        <span class="s1">Toast.makeText(Simular1.</span><span class="s0">this, </span><span class="s4">&quot;Guardado correctamente&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+                        <span class="s1">Intent i = </span><span class="s0">new </span><span class="s1">Intent(Simular1.</span><span class="s0">this, </span><span class="s1">Historial.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">i.putExtra(</span><span class="s4">&quot;FechaSeleccionada&quot;</span><span class="s0">, </span><span class="s1">FechaDia)</span><span class="s0">;</span>
+                        <span class="s1">i.putExtra(</span><span class="s4">&quot;desdeRegistro&quot;</span><span class="s0">, true</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">startActivity(i)</span><span class="s0">;</span>
+
+                    <span class="s1">}</span>
+                <span class="s1">}).addOnFailureListener(</span><span class="s0">new </span><span class="s1">OnFailureListener() {</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onFailure(@NonNull Exception e) {</span>
+                        <span class="s1">Toast.makeText(Simular1.</span><span class="s0">this, </span><span class="s4">&quot;No se guardó&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">})</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">reader.close()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(IOException e) {</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public </span><span class="s1">ArrayList&lt;Double&gt; filtrado(ArrayList&lt;Integer&gt; vector</span><span class="s0">, </span><span class="s1">Boolean RMSB</span><span class="s0">, </span><span class="s1">Boolean Periodograma) {</span>
+
+        <span class="s2">//1. CONVIERTE EL ARRAYLIST A DOUBLE -------------------------------------------------------</span>
+
+        <span class="s0">double</span><span class="s1">[] arreglo = </span><span class="s0">new double</span><span class="s1">[vector.size()]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; vector.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">double </span><span class="s1">elemento = vector.get(i).doubleValue()</span><span class="s0">;</span>
+            <span class="s1">arreglo[i] = elemento * </span><span class="s3">1023 </span><span class="s1">/ </span><span class="s3">5</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s2">//CALCULO DE LA MEDIA Y SE LE RESTA---------------------------------------------------------</span>
+        <span class="s0">double </span><span class="s1">mean = calculateMean(arreglo)</span><span class="s0">;</span>
+        <span class="s0">double</span><span class="s1">[] emgWithMeanSubtracted = subtractMean(arreglo</span><span class="s0">, </span><span class="s1">mean)</span><span class="s0">;</span>
+
+        <span class="s2">//3.FILTRO PASA-BANDAS----------------------------------------------------------------------</span>
+        <span class="s0">double</span><span class="s1">[] emg_f_pb = applyBandPassFilter(emgWithMeanSubtracted)</span><span class="s0">;</span>
+
+        <span class="s2">//4.RECTIFICADO ----------------------------------------------------------------------------</span>
+
+        <span class="s0">double</span><span class="s1">[] emg_rect = </span><span class="s0">new double</span><span class="s1">[emg_f_pb.length]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; emg_f_pb.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">emg_rect[i] = Math.abs(emg_f_pb[i])</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+
+        <span class="s2">//5. PASA DE DOUBLE A LISTA.</span>
+
+        <span class="s1">ArrayList&lt;Integer&gt; emgEnvelopeList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">double </span><span class="s1">value : emg_rect) {</span>
+            <span class="s1">emgEnvelopeList.add((</span><span class="s0">int</span><span class="s1">) value)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s2">//6.a. DEPENDE que esta buscando</span>
+        <span class="s1">List&lt;</span><span class="s0">double</span><span class="s1">[]&gt; windows2 = generateWindows(emg_rect</span><span class="s0">, </span><span class="s1">SAMPLE_RATE</span><span class="s0">, </span><span class="s1">windowSizeSeconds)</span><span class="s0">;</span>
+        <span class="s0">double</span><span class="s1">[] RMS = </span><span class="s0">new double</span><span class="s1">[windows2.size()]</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(RMSB == </span><span class="s0">true</span><span class="s1">) {</span>
+
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; windows2.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">double</span><span class="s1">[] window = windows2.get(i)</span><span class="s0">;</span>
+                <span class="s1">RMS[i] = RMS_f(window</span><span class="s0">, </span><span class="s1">SAMPLE_RATE)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s2">/// CoMparacion RMS</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">k++) {</span>
+                <span class="s1">referencia3 += RMS[k]</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">referencia3 = referencia3 / </span><span class="s3">3</span><span class="s0">;</span>
+            <span class="s1">referencia3 = </span><span class="s3">13 </span><span class="s1">* referencia3 / </span><span class="s3">10</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">consecutivo3 = </span><span class="s3">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; RMS.length</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(RMS[j] &gt;= referencia3 &amp;&amp; j &gt; </span><span class="s3">3</span><span class="s1">) {</span>
+                    <span class="s1">consecutivo3 += </span><span class="s3">1</span><span class="s0">;</span>
+                    <span class="s0">if </span><span class="s1">(consecutivo3 == </span><span class="s3">3</span><span class="s1">) {</span>
+                        <span class="s1">Fatiga_RMS = </span><span class="s0">true;</span>
+                        <span class="s1">Ifatiga_RMS = j</span><span class="s0">;</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">consecutivo3 = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(Periodograma == </span><span class="s0">true</span><span class="s1">) {</span>
+
+            <span class="s1">List&lt;</span><span class="s0">double</span><span class="s1">[]&gt; windows = generateWindows(emg_f_pb</span><span class="s0">, </span><span class="s1">SAMPLE_RATE</span><span class="s0">, </span><span class="s1">windowSizeSeconds)</span><span class="s0">;</span>
+
+            <span class="s0">double</span><span class="s1">[] MEAN_FFT = </span><span class="s0">new double</span><span class="s1">[windows.size()]</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; windows.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">double</span><span class="s1">[] window = windows.get(i)</span><span class="s0">;</span>
+                <span class="s0">double</span><span class="s1">[] Caracteristicas = periodograma(window</span><span class="s0">, </span><span class="s1">SAMPLE_RATE)</span><span class="s0">;</span>
+                <span class="s1">MEAN_FFT[i] = Caracteristicas[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+
+                <span class="s2">// Comparacion MEDIA----------------------------------------------------------------</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s3">3</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s1">referencia2 += MEAN_FFT[k]</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s1">referencia2 = referencia2 / </span><span class="s3">3</span><span class="s0">;</span>
+                <span class="s1">referencia2 = </span><span class="s3">3 </span><span class="s1">* referencia2 / </span><span class="s3">10</span><span class="s0">;</span>
+                <span class="s0">int </span><span class="s1">consecutivo2 = </span><span class="s3">0</span><span class="s0">;</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">j &lt; MEAN_FFT.length</span><span class="s0">; </span><span class="s1">j++) {</span>
+                    <span class="s0">if </span><span class="s1">(MEAN_FFT[j] &lt;= referencia2 &amp;&amp; j &gt; </span><span class="s3">3</span><span class="s1">) {</span>
+                        <span class="s1">consecutivo2 += </span><span class="s3">1</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(consecutivo2 == </span><span class="s3">3</span><span class="s1">) {</span>
+                            <span class="s1">Fatiga_promedio = </span><span class="s0">true;</span>
+                            <span class="s1">Ifatiga_promedio = j</span><span class="s0">;</span>
+                            <span class="s0">break;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                        <span class="s1">consecutivo2 = </span><span class="s3">0</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s2">//PRESENTO FATIGA?</span>
+
+        <span class="s0">if </span><span class="s1">(Fatiga_promedio == </span><span class="s0">true </span><span class="s1">&amp;&amp; Fatiga_RMS == </span><span class="s0">true</span><span class="s1">){</span>
+            <span class="s1">presento_fatiga = </span><span class="s4">&quot;Si&quot;</span><span class="s0">;</span>
+            <span class="s1">tiempo_fatiga  = (Ifatiga_promedio + Ifatiga_RMS) * windowSizeSeconds / </span><span class="s3">2</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(Fatiga_promedio == </span><span class="s0">false </span><span class="s1">&amp;&amp; Fatiga_RMS == </span><span class="s0">false</span><span class="s1">){</span>
+            <span class="s1">presento_fatiga = </span><span class="s4">&quot;No&quot;</span><span class="s0">;</span>
+            <span class="s1">tiempo_fatiga = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">presento_fatiga = </span><span class="s4">&quot;Si&quot;</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(Fatiga_promedio == </span><span class="s0">true</span><span class="s1">){</span>
+                <span class="s1">tiempo_fatiga = Ifatiga_promedio * windowSizeSeconds</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">else</span><span class="s1">{</span>
+                <span class="s1">tiempo_fatiga = Ifatiga_RMS * windowSizeSeconds</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">Toast.makeText(Simular1.</span><span class="s0">this, </span><span class="s4">&quot;presento_fatiga&quot; </span><span class="s1">+ presento_fatiga + tiempo_fatiga</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+        <span class="s2">//5. PASA DE DOUBLE A LISTA.</span>
+
+        <span class="s1">ArrayList&lt;Double&gt; RMSlista = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s2">/*for (double value : RMS) { 
+            RMSlista.add((int) value); 
+        }*/</span>
+        <span class="s1">RMSlista = linearRegression(RMS)</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">RMSlista</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static </span><span class="s1">ArrayList&lt;Double&gt; linearRegression(</span><span class="s0">double</span><span class="s1">[] y) {</span>
+        <span class="s0">int </span><span class="s1">n = y.length</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">sumX = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">sumY = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">sumXY = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">sumXX = </span><span class="s3">0</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; n</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">sumX += i</span><span class="s0">;</span>
+            <span class="s1">sumY += y[i]</span><span class="s0">;</span>
+            <span class="s1">sumXY += i * y[i]</span><span class="s0">;</span>
+            <span class="s1">sumXX += i * i</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">double </span><span class="s1">meanX = sumX / n</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">meanY = sumY / n</span><span class="s0">;</span>
+
+        <span class="s0">double </span><span class="s1">slope = (sumXY - n * meanX * meanY) / (sumXX - n * meanX * meanX)</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">intercept = meanY - slope * meanX</span><span class="s0">;</span>
+
+        <span class="s0">double </span><span class="s1">yo = intercept</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">yf = slope * (n - </span><span class="s3">1</span><span class="s1">) + intercept</span><span class="s0">;</span>
+
+        <span class="s0">if </span><span class="s1">(yo &gt; yf){</span>
+            <span class="s1">yf = yf / yo</span><span class="s0">;</span>
+            <span class="s1">yo =</span><span class="s3">1.0</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">yo = yo / yf</span><span class="s0">;</span>
+            <span class="s1">yf = </span><span class="s3">1</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+
+        <span class="s1">ArrayList&lt;Double&gt; regressionResult = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s2">// Punto inicial</span>
+        <span class="s1">regressionResult.add(yo)</span><span class="s0">; </span><span class="s2">// y = intercept (convertido a int)</span>
+
+        <span class="s2">// Punto final</span>
+        <span class="s1">regressionResult.add(yf)</span><span class="s0">; </span><span class="s2">// y = slope * (n - 1) + intercept (convertido a int)</span>
+
+        <span class="s0">return </span><span class="s1">regressionResult</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">//----------------------------------------------------------------------------------------------</span>
+    <span class="s2">//GENERADOR DE VENTANAS-------------------------------------------------------------------------</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;</span><span class="s0">double</span><span class="s1">[]&gt; generateWindows(</span><span class="s0">double</span><span class="s1">[] signal</span><span class="s0">, double </span><span class="s1">samplingFrequency</span><span class="s0">, double </span><span class="s1">windowSize) {</span>
+        <span class="s0">int </span><span class="s1">windowLength = (</span><span class="s0">int</span><span class="s1">) Math.round(windowSize * samplingFrequency)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">signalLength = signal.length</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">numWindows = (</span><span class="s0">int</span><span class="s1">) Math.ceil(signalLength / (</span><span class="s0">double</span><span class="s1">) windowLength)</span><span class="s0">;</span>
+
+        <span class="s1">List&lt;</span><span class="s0">double</span><span class="s1">[]&gt; windows = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; numWindows</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">start = i * windowLength</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">end = Math.min(start + windowLength</span><span class="s0">, </span><span class="s1">signalLength)</span><span class="s0">;</span>
+
+            <span class="s0">double</span><span class="s1">[] window = </span><span class="s0">new double</span><span class="s1">[end - start]</span><span class="s0">;</span>
+            <span class="s1">System.arraycopy(signal</span><span class="s0">, </span><span class="s1">start</span><span class="s0">, </span><span class="s1">window</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">end - start)</span><span class="s0">;</span>
+
+            <span class="s1">windows.add(window)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">windows</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+
+    <span class="s2">//----------------------------------------------------------------------------------------------</span>
+    <span class="s2">//PERIODOGRAMA ---------------------------------------------------------------------------------</span>
+
+    <span class="s0">public double</span><span class="s1">[] periodograma(</span><span class="s0">double</span><span class="s1">[] x</span><span class="s0">, int </span><span class="s1">fs ) {</span>
+
+        <span class="s1">DoubleFFT_1D fft = </span><span class="s0">new </span><span class="s1">DoubleFFT_1D(fs)</span><span class="s0">;</span>
+        <span class="s0">double</span><span class="s1">[] spectrum = </span><span class="s0">new double</span><span class="s1">[fs]</span><span class="s0">;</span>
+        <span class="s1">fft.realForward(x)</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; fs / </span><span class="s3">2 </span><span class="s1">+ </span><span class="s3">1</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">double </span><span class="s1">real = x[</span><span class="s3">2 </span><span class="s1">* i]</span><span class="s0">;</span>
+            <span class="s0">double </span><span class="s1">imag = x[</span><span class="s3">2 </span><span class="s1">* i + </span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s1">spectrum[i] = (real * real + imag * imag) / fs</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">double</span><span class="s1">[] frec=</span><span class="s0">new double</span><span class="s1">[spectrum.length]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; fs / </span><span class="s3">2 </span><span class="s1">+ </span><span class="s3">1</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">double </span><span class="s1">frequency = i * (fs / </span><span class="s3">2.0</span><span class="s1">) / (fs / </span><span class="s3">2.0 </span><span class="s1">+ </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">frec[i]=frequency</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">double </span><span class="s1">MNFl</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">MDFl</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">aa = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">bb = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">bb2 = </span><span class="s3">0</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; spectrum.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">aa += frec[i] * spectrum[i]</span><span class="s0">;</span>
+            <span class="s1">bb += spectrum[i]</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(i != </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">bb2 += spectrum[i]</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">MNFl = aa / bb</span><span class="s0">;</span>
+        <span class="s1">MDFl = </span><span class="s3">0.5 </span><span class="s1">* bb2</span><span class="s0">;</span>
+
+        <span class="s0">return new double</span><span class="s1">[] {MNFl</span><span class="s0">, </span><span class="s1">MDFl}</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s2">//----------------------------------------------------------------------------------------------</span>
+    <span class="s2">//PERIODOGRAMA ---------------------------------------------------------------------------------</span>
+
+    <span class="s0">public double </span><span class="s1">RMS_f(</span><span class="s0">double</span><span class="s1">[] senal</span><span class="s0">, int </span><span class="s1">f) {</span>
+        <span class="s0">double </span><span class="s1">a = </span><span class="s3">0.0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">rms</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; senal.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">a += Math.pow(senal[i]</span><span class="s0">, </span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">rms = Math.sqrt(a / (senal.length * (</span><span class="s3">1.0 </span><span class="s1">/ f)))</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">rms</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s1">@Contract(pure = </span><span class="s0">true</span><span class="s1">)</span>
+    <span class="s0">private double </span><span class="s1">calculateMean(@NonNull </span><span class="s0">double</span><span class="s1">[] signal) {</span>
+        <span class="s0">double </span><span class="s1">sum = </span><span class="s3">0.0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">double </span><span class="s1">value : signal) {</span>
+            <span class="s1">sum += value</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">sum / signal.length</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@NonNull</span>
+    <span class="s1">@Contract(pure = </span><span class="s0">true</span><span class="s1">)</span>
+    <span class="s0">private double</span><span class="s1">[] subtractMean(@NonNull </span><span class="s0">double</span><span class="s1">[] signal</span><span class="s0">, double </span><span class="s1">mean) {</span>
+        <span class="s0">double</span><span class="s1">[] result = </span><span class="s0">new double</span><span class="s1">[signal.length]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; signal.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">result[i] = signal[i] - mean</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@NonNull</span>
+    <span class="s0">public static double</span><span class="s1">[] applyBandPassFilter(@NonNull </span><span class="s0">double</span><span class="s1">[] signal) {</span>
+        <span class="s0">int </span><span class="s1">n = signal.length</span><span class="s0">;</span>
+        <span class="s2">// Perform forward FFT</span>
+        <span class="s1">DoubleFFT_1D fft = </span><span class="s0">new </span><span class="s1">DoubleFFT_1D(n)</span><span class="s0">;</span>
+        <span class="s0">double</span><span class="s1">[] frequencyDomainSignal = </span><span class="s0">new double</span><span class="s1">[</span><span class="s3">2 </span><span class="s1">* n]</span><span class="s0">;</span>
+        <span class="s1">System.arraycopy(signal</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">frequencyDomainSignal</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+        <span class="s1">fft.realForwardFull(frequencyDomainSignal)</span><span class="s0">;</span>
+        <span class="s2">// Apply the band-pass filter to the frequency domain signal</span>
+        <span class="s0">double</span><span class="s1">[] filteredSignal = </span><span class="s0">new double</span><span class="s1">[</span><span class="s3">2 </span><span class="s1">* n]</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">lowIndex = (</span><span class="s0">int</span><span class="s1">) Math.ceil(LOW_CUTOFF_FREQUENCY * n / SAMPLE_RATE)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">highIndex = (</span><span class="s0">int</span><span class="s1">) Math.floor(HIGH_CUTOFF_FREQUENCY * n / SAMPLE_RATE)</span><span class="s0">;</span>
+        <span class="s1">System.arraycopy(frequencyDomainSignal</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">filteredSignal</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s3">2 </span><span class="s1">* n)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; lowIndex</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">filteredSignal[</span><span class="s3">2 </span><span class="s1">* i] = </span><span class="s3">0.0</span><span class="s0">;</span>
+            <span class="s1">filteredSignal[</span><span class="s3">2 </span><span class="s1">* i + </span><span class="s3">1</span><span class="s1">] = </span><span class="s3">0.0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = highIndex + </span><span class="s3">1</span><span class="s0">; </span><span class="s1">i &lt; n</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">filteredSignal[</span><span class="s3">2 </span><span class="s1">* i] = </span><span class="s3">0.0</span><span class="s0">;</span>
+            <span class="s1">filteredSignal[</span><span class="s3">2 </span><span class="s1">* i + </span><span class="s3">1</span><span class="s1">] = </span><span class="s3">0.0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s2">// Perform inverse FFT</span>
+        <span class="s1">fft.realInverse(filteredSignal</span><span class="s0">, true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">// Extract the filtered signal from the complex-valued result</span>
+        <span class="s0">double</span><span class="s1">[] result = </span><span class="s0">new double</span><span class="s1">[n]</span><span class="s0">;</span>
+        <span class="s1">System.arraycopy(filteredSignal</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">result</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public double</span><span class="s1">[] applyLowPassFilter(</span><span class="s0">double</span><span class="s1">[] input</span><span class="s0">, double </span><span class="s1">samplingFrequency</span><span class="s0">, double </span><span class="s1">cutoffFrequency) {</span>
+        <span class="s0">int </span><span class="s1">signalLength = input.length</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">nyquistFrequency = samplingFrequency / </span><span class="s3">2.0</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">normalizedCutoff = cutoffFrequency / nyquistFrequency</span><span class="s0">;</span>
+
+        <span class="s2">// Perform forward FFT</span>
+        <span class="s1">DoubleFFT_1D fft = </span><span class="s0">new </span><span class="s1">DoubleFFT_1D(signalLength)</span><span class="s0">;</span>
+        <span class="s0">double</span><span class="s1">[] spectrum = </span><span class="s0">new double</span><span class="s1">[signalLength * </span><span class="s3">2</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">System.arraycopy(input</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">spectrum</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">signalLength)</span><span class="s0">;</span>
+        <span class="s1">fft.realForwardFull(spectrum)</span><span class="s0">;</span>
+
+        <span class="s2">// Apply low-pass filter in frequency domain</span>
+        <span class="s0">int </span><span class="s1">cutoffIndex = (</span><span class="s0">int</span><span class="s1">) Math.round(normalizedCutoff * signalLength)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = cutoffIndex</span><span class="s0">; </span><span class="s1">i &lt; signalLength</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">spectrum[i * </span><span class="s3">2</span><span class="s1">] = </span><span class="s3">0.0</span><span class="s0">;</span>
+            <span class="s1">spectrum[i * </span><span class="s3">2 </span><span class="s1">+ </span><span class="s3">1</span><span class="s1">] = </span><span class="s3">0.0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s2">// Perform inverse FFT</span>
+        <span class="s1">fft.realInverse(spectrum</span><span class="s0">, true</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s2">// Get the filtered signal</span>
+        <span class="s0">double</span><span class="s1">[] output = </span><span class="s0">new double</span><span class="s1">[signalLength]</span><span class="s0">;</span>
+        <span class="s1">System.arraycopy(spectrum</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">output</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s1">signalLength)</span><span class="s0">;</span>
+
+        <span class="s0">return </span><span class="s1">output</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+<span class="s1">}</span></pre>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9E9B9B"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Logo 1 -->
+        <View
+            android:id="@+id/logo_1"
+            android:layout_width="223dp"
+            android:layout_height="222dp"
+            android:layout_marginTop="-150dp"
+            android:background="@drawable/log"/>
+
+        <!-- Bienvenido -->
+        <TextView
+            android:id="@+id/bienvenido"
+            android:layout_width="353dp"
+            android:layout_height="80dp"
+            android:text="Bienvenido"
+            android:layout_marginTop="-40dp"
+            android:textAppearance="@style/bienvenido"
+            android:gravity="center_horizontal|top"
+            android:fontFamily="@font/poppins_regular"
+            android:lineHeight="45sp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+        android:id="@+id/textcorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correo electrónico"
+        android:fontFamily="@font/poppins_regular"
+        android:textAppearance="@style/nombre_de_u"
+        android:layout_marginLeft="15dp"/>
+
+        <EditText
+            android:id="@+id/correo"
+            android:layout_width="369dp"
+            android:layout_height="48dp"
+            android:background="#DFD9D9"
+            android:ems="10"
+            android:hint="Ingrese su correo electrónico"
+            android:inputType="textPersonName|text"
+            android:paddingLeft="8dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
+        <TextView
+            android:id="@+id/contra_texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contraseña"
+            android:fontFamily="@font/poppins_regular"
+            android:textAppearance="@style/nombre_de_u"
+            android:layout_marginLeft="14dp"/>
+
+        <EditText
+            android:id="@+id/contrasena"
+            android:layout_width="369dp"
+            android:layout_height="48dp"
+            android:background="#DFD9D9"
+            android:ems="10"
+            android:hint="Ingrese su contraseña"
+            android:inputType="textPassword"
+            android:paddingLeft="8dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:layout_width="159dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/btn_iniciar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/iniciar"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:onClick="IniciarSesion"
+                android:contentDescription="Iniciar Sesión"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Iniciar Sesión"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:layout_width="159dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/btn_registrar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/iniciar"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:onClick="IrARegistro"
+                android:contentDescription="Registrarse" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Registrarse"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+    <!-- enzo 1 -->
+    <View
+        android:id="@+id/enzo_1"
+        android:layout_width="125dp"
+        android:layout_height="259dp"
+        android:background="@drawable/enzo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

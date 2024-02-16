@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu">
+
+    <!-- COPIAR DESDE ACA -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_vertical"
+            android:text="MENU"
+            android:textAppearance="@style/registrarse" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="30dp"
+            app:srcCompat="@drawable/linea" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <!--BOTONES INICIAR - HISTORIAL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/Boton_iniciar"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton iniciar"
+                android:onClick="IrASync"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_iniciar" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/Boton_Calibracion"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:onClick="IrCalibracion"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton calibracion"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/calibracion" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <!--BOTON GUIA - INFORMACION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/Boton_Historial"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton Historial"
+                android:onClick="IrAejemplo"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_historial" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/Boton_Seguimiento"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton seguimiento"
+                android:onClick="IrASeguimiento"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/seguimiento" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <!--BOTON CERRAR SESION-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/Boton_Info"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton Historial"
+                android:onClick="IrAInfo"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_info" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent" />
+
+            <ImageButton
+                android:id="@+id/btn_cerrar"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton Cerrar"
+                android:onClick="IrAMain"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_cerrar" />
+
+        </LinearLayout>
+
+
+
+
+        <!-- icono enzo-->
+
+
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/en" />
+
+         </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

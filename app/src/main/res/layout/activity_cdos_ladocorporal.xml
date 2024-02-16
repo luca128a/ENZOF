@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".C_dos_ladocorporal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/BotonAtras10"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton atras"
+                android:onClick="IrAParteCuerpo"
+                android:scaleType="fitCenter"
+                android:src="@drawable/atras"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:text="CALIBRACIÓN"
+                    android:textAppearance="@style/registrarse" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="30dp"
+                    app:srcCompat="@drawable/linea" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <!-- ICONO ENZO-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- ICONO ENZO-->
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/en" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <!--Lista musculos-->
+
+                    <Spinner
+                        android:id="@+id/lista_musculo"
+                        android:layout_width="340dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/color_spinner"
+                        android:tint="#B3B31D"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <!--Lista izquierda/derecha-->
+
+                    <Spinner
+                        android:id="@+id/lista_lado"
+                        android:layout_width="340dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/color_spinner"
+                        android:tint="#B3B31D"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="Respetando los siguientes colores y posiciones coloque en el lado elegido los electrodos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/elec_biceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_biceps" />
+
+                <ImageView
+                    android:id="@+id/elec_abdomen"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_abdomen" />
+
+                <ImageView
+                    android:id="@+id/elec_antebrazo"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_antebrazo" />
+
+                <ImageView
+                    android:id="@+id/elec_triceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_triceps" />
+
+                <ImageView
+                    android:id="@+id/elec_espaldaalta"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_trapecio" />
+
+                <ImageView
+                    android:id="@+id/elec_espaldabaja"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_espaldalateral" />
+
+                <ImageView
+                    android:id="@+id/elec_espaldalateral"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_espaldalateral" />
+
+                <ImageView
+                    android:id="@+id/elec_hombros"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_hombro" />
+
+                <ImageView
+                    android:id="@+id/elec_cuadriceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_cuadriceps" />
+
+                <ImageView
+                    android:id="@+id/elec_femoral"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_femoral" />
+
+                <ImageView
+                    android:id="@+id/elec_pectoral"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_pectoral" />
+
+                <ImageView
+                    android:id="@+id/elec_pantorilla"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/elec_pantorilla" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_confirmar"
+                    android:layout_width="340dp"
+                    android:layout_height="40dp"
+                    android:visibility="visible">
+
+                    <ImageButton
+                        android:id="@+id/btn_confirmar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="Guia"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_blanco2"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:text="CONTINUAR"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

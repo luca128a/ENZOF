@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Historial">
+
+    <!-- COPIAR DESDE ACA -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/BotonAtras2"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton atras"
+                android:scaleType="fitCenter"
+                android:src="@drawable/atras"
+                android:onClick="IrAmenu"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/texto_registrarse"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:text="GUIA de AYUDA"
+                    android:textAppearance="@style/registrarse"
+                    tools:ignore="TextSizeCheck" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="30dp"
+                    app:srcCompat="@drawable/linea" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <Spinner
+            android:id="@+id/lista_guia"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@color/color_spinner"
+            android:tint="#B3B31D"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <Spinner
+            android:id="@+id/lista_guia2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@color/color_spinner"
+            android:tint="#B3B31D"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <!--A CAMBIAR-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/cuadriceps_electrodos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="¡IMPORTANTE! Respetar la siguiente ubicación de los electrodos según su color."
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Hueso de la cadera"
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Tercio superior del músculo"
+                    android:textColor="#14812B"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="Tercio inferior del músculo de forma que queden en línea recta"
+                    android:textColor="#FFC107"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imagen_guia4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/cuadriceps" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/triceps_electrodos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="¡IMPORTANTE! Respetar la siguiente ubicación de los electrodos según su color."
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Codo"
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Parte posterior y superior del brazo, cerca del hombro"
+                    android:textColor="#14812B"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Parte posterior e inferior del brazo cerca del codo, de modo que queden en línea recta"
+                    android:textColor="#FFC107"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imagen_guia2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/biceps" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/biceps_electrodos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="¡IMPORTANTE! Respetar la siguiente ubicación de los electrodos según su color."
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Codo"
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Parte delantera y superior del brazo,\n cerca del hombro"
+                    android:textColor="#14812B"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="- Parte delantera e inferior del brazo de modo que queden en línea recta"
+                    android:textColor="#FFC107"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imagen_guia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/triceps" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sin_seleccionarR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/texto_guiaR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="Seleccione acerca de que quiere saber más, si de la colocación de electrodos o del ejercicio a realizar. "
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sin_seleccionar_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/texto_guiaM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="fill_horizontal"
+                    android:padding="10dp"
+                    android:text="Seleccione el músculo a ejercitar y acerca de que quiere saber más. "
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <VideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/biceps_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#FFFFFF">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="fill_horizontal"
+                        android:padding="14dp"
+                        android:text="PASOS A SEGUIR \n\n 1. Seleccione el peso adecuado (leer info)\n\n2. Siéntese en una silla con respaldo\n\n3. Agarre el peso con la mano del brazo en el que coloco los electrodos, tal como se ve en la posición 1 de la imagen\n\n4. Doble los codos totalmente manteniendo el agarre mientras exhala como se ve en la posicion 2 de la imagen\n\n5. Vuelva a la posición inicial con un movimiento lento mientras inhala \n\n 5. Repita"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+
+                </ScrollView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"></Space>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text=" ¡IMPORTANTE! Tratar de solo mover la articulación del codo, evitando mover cualquier otra parte del cuerpo. "
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/imagen_guiaB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/biceps2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/triceps_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#FFFFFF">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="fill_horizontal"
+                        android:padding="14dp"
+                        android:text="PASOS A SEGUIR \n\n 1. Seleccione el peso adecuado (leer info) \n\n 2. Siéntese en una silla con respaldo \n\n 3. Coloque los pies planos en el suelo \n\n 4. Levante el peso justo encima de usted extendiendo el brazo que contiene los electrodos \n\n 5. Baje lentamente el peso justo detrás de usted doblando su brazo mientras inhala \n\n 6. Regrese a la posición inicial en un movimiento fuerte mientras exhala \n\n 7. Repita  "
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+
+                </ScrollView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"></Space>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text=" ¡IMPORTANTE! Tratar de solo mover la articulación del codo, evitando mover cualquier otra parte del cuerpo. "
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/imagen_guiaT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/triceps2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cuadriceps_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="#FFFFFF">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="fill_horizontal"
+                        android:padding="14dp"
+                        android:text="PASOS A SEGUIR \n\n 1. Seleccione el peso adecuado(leer info) \n\n 2. Colóquese de pie como en la posición 1 de la imagen y coloque el peso justo encima de los hombros mientras mantiene los codos doblados en línea con su torso \n\n 3. De un paso adelante con la pierna que contiene los electrodos haciendo un ángulo de 90° grados al doblar la rodilla, como se ve en la posición 2 de la imagen \n\n 4. Regrese a la posición inicial \n\n 5. Repita "
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+
+                </ScrollView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"></Space>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text=" ¡IMPORTANTE! Tratar de solo mover las piernas durante el ejercicio y no mover ninguna otra parte del cuerpo. "
+                    android:textColor="#F44336"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/imagen_guiaC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/cuadriceps2" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <!-- ICONO ENZO-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/en" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

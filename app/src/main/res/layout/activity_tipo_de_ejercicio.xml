@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RS_tres_ejercicio">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/BotonAtras12"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:contentDescription="Boton atras"
+                android:onClick="IrALado"
+                android:scaleType="fitCenter"
+                android:src="@drawable/atras"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center_vertical"
+                    android:text="REGISTRO de la SEÑAL"
+                    android:textAppearance="@style/registrarse" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="30dp"
+                    app:srcCompat="@drawable/linea" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <!-- ICONO ENZO-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- ICONO ENZO-->
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/en" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <!--Lista musculos-->
+
+                    <Spinner
+                        android:id="@+id/lista_tipoejercicio"
+                        android:layout_width="340dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/color_spinner"
+                        android:tint="#B3B31D"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/texto_guiaM"
+                        android:layout_width="155dp"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center_vertical"
+                        android:text="Seleccione peso(kg): "
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent" />
+
+                    <NumberPicker
+                        android:id="@+id/numberpicker"
+                        android:layout_width="155dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_spinner"
+                        android:textSize="24sp"/>
+
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <!--CAMBIA LA PANTALLA: FONDO-->
+
+                <LinearLayout
+                    android:id="@+id/fondo"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        app:srcCompat="@drawable/fondo" />
+                </LinearLayout>
+
+                <!--ABDOMINALES CON CARGA IMAGEN CICLICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_abd"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_abd_cuad_glut_fem_pant" />
+
+                    <ScrollView
+                        android:id="@+id/texto_carga_abd"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Sostenga la carga con ambas manos \n\n2. Coloque los pies más anchos que el ancho de los hombros, con los dedos hacia afuera \n\n3. Baje las piernas hasta que sus muslos queden paralelos al piso \n\n4. Vuelva a la posición inicial y repita hasta la duración máxima elegida o hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--ABDOMINALES CON CARGA IMAGEN ESTATICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_abd_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_abd_cuad_glut_fem_pant" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Sostenga la carga con ambas manos \n\n2. Coloque los pies más anchos que el ancho de los hombros, con los dedos hacia afuera \n\n3. Baje las piernas hasta que sus muslos queden paralelos al piso \n\n4. Mantenga esa posición hasta el cansacio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--BICEPS CON CARGA IMAGEN CICLICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_biceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_biceps_antebrazo" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Siéntese con la carga al lado de su cadera \n\n2. Doble el codo permitiendo que la carga este a la altura del hombro \n\n3. Vuelva a la posición original y repita el ejercicio hasta la duración máxima elegida o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--BICEPS CON CARGA IMAGEN ESTATICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_biceps_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_biceps_antebrazo" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Siéntese con la carga al lado de su cadera \n\n2. Doble el codo permitiendo que la carga este a la altura del hombro \n\n3. Mantenga esa posición hasta la duración máxima elegida o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--ESPALDA CON CARGA IMAGEN CICLICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_espalda"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_espalda_alta_lateral" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Coloque la pierna y brazo contrario en el banco como se observa en la imagen \n\n2. La parte superior del cuerpo debe quedar paralela al suelo \n\n3. Levante la carga hacia el lado de su pecho, moviendo solo el brazo \n\n4. Vuelva a la posición original con un suave movimiento y repita hasta la duración máxima elegida o hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--ESPALDA CON CARGA IMAGEN CICLICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_espalda_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_espalda_alta_lateral" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Coloque la pierna y brazo contrario en el banco como se observa en la imagen \n\n2. La parte superior del cuerpo debe quedar paralela al suelo \n\n3. Levante la carga hacia el lado de su pecho, moviendo solo el brazo \n\n4. Mantenga esa posición hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--PECTORAL CON CARGA IMAGEN CICLICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_pectoral"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_pectoral_triceps" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Túmbese boca arriba con los pies apoyados en el suelo, con la rodilla a 90° \n\n2. Levante la carga como se muestra en la imagen agarrando la carga con las manos mirando hacia los pies \n\n3. Baje lentamente la carga al lado de su pecho hasta que su codo quede a 90° \n\n4. Vuelva a la posición original hasta la duración máxima o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--PECTORAL CON CARGA IMAGEN ESTATICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_pectoral_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_pectoral_triceps" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Túmbese boca arriba con los pies apoyados en el suelo, con la rodilla a 90° \n\n2. Levante la carga como se muestra en la imagen agarrando la carga con la mano mirando hacia los pies \n\n3. Mantenga esa posición hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--HOMBROS CON CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/carga_hombros"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_hombro" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Acuéstese en un banco y levante la carga justo por encima de usted, haciendo que el brazo quede perpendicular al suelo \n\n2. Baje lentamente la carga detrás de la cabeza \n\n3. Vuelva a la posición original \n\n4. Repita hasta la duración máxima o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--HOMBROS CON CARGA IMAGEN ESTATICO-->
+
+                <LinearLayout
+                    android:id="@+id/carga_hombros_est"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_carga_hombro" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Acuéstese en un banco y levante la carga justo por encima de usted, haciendo que el brazo quede perpendicular al suelo \n\n2. Baje lentamente la carga detrás de la cabeza \n\n4. Mantnga esa posición hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--PECHO SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_pectoral"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_pect_abd_tri_homb" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Túmbese de cara al suelo y coloque sus manos ligeramente más ancho que los hombros mientras aguanta su torso con los brazos extendidos \n\n2. Baje doblando los codos hasta que su pecho casi toque el suelo \n\n 3. Vuelva a la posición original \n\n4. Repita hasta la duración máxima o cansancio."
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--ESPALDA SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_espalda"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_espalda" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Colóquese en cuadrupedia con las rodillas debajo de las caderas y las manos debajo de los hombros \n\n2. Alargue una pierna hasta que quede recta y a la vez levante y estire el brazo contrario \n\n3. Vuelva a la posición inicial \n\n4. "
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--BICEPS SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_biceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_biceps" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Colóquese junto a una pared con los pies juntos y agarráse con una mano \n\n2. Inclínese lentamente extendiendo su brazo \n\n3. Vuelva a la posición original \n\n4. Repita el movimiento hasta la duración máxima o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--ANTEBRAZO SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_antebrazo"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_antebrazo" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Túmbese cara al suelo con las manos por fuera de los hombros y los brazos extendidos \n\n2. Comience a caminar dando pequeños pasos con las rodillas hasta que sus pies estén justo detrás de sus manos \n\n 3. Regrese a la posición inicial caminando con las manos hacia adelante \n\n4. Repita el ejercicio hasta la duración máxima o hasta el cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--FEMORAL SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_femoral"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_femoral_pant" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. Colóquese de pie con los pies a la altura de los hombros \n\n2. De un paso adelante con una pierna haciendo un ángulo de 90° entre sus piernas \n\n3. Doble las rodillas y baje lentamente hasta que su rodilla casi toque el piso como se muestra en la imagen \n\n4. Regrese a la posición inicial \n\n5. Repita hasta la duración máxima o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--CUADRICEPS SIN CARGA IMAGEN-->
+
+                <LinearLayout
+                    android:id="@+id/sin_cuadriceps"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:srcCompat="@drawable/ciclico_sin_cuadriceps" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="#FFFFFF">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="fill_horizontal"
+                            android:padding="14dp"
+                            android:text="1. De pie separe sus pies a la altura de los hombros, con los pies ligeramente hacia afuera \n\n2. Doble una rodilla, colocando el pie en la otra \n\n3. Baje las piernas y levante los brazos hasta que los muslos y brazos queden paralelos al suelo \n\n4. Vuelva a la posición inicial \n\n5. Repita el ejercicio hasta la duración máxima o cansancio"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            />
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_confirmar"
+                    android:layout_width="340dp"
+                    android:layout_height="40dp"
+                    android:visibility="visible">
+
+                    <ImageButton
+                        android:id="@+id/btn_confirmar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="Guia"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_blanco2"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="CONTINUAR"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

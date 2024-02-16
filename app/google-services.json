@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "364565252023",
+    "firebase_url": "https://enzof-3dbc0-default-rtdb.firebaseio.com",
+    "project_id": "enzof-3dbc0",
+    "storage_bucket": "enzof-3dbc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364565252023:android:3a8fecc4b114b2facf4a32",
+        "android_client_info": {
+          "package_name": "com.example.enzof"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364565252023-k2h4mjq1mmpp7f7uqkpgdbscjb9oatqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC5-yJt92QLnhC14KCKnWiHVecFz1EGyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364565252023-k2h4mjq1mmpp7f7uqkpgdbscjb9oatqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
