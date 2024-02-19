@@ -1,1 +1,1 @@
-[Informe EnzoF](EnzoF_Final.pdf) - Descripción del documento
+[Informe EnzoF](EnzoF_Final.pdf) - En el siguiente documento se encuentra el informe del proyecto, donde se puede ver en detalle el diseño y desarrollo del mismo. 
